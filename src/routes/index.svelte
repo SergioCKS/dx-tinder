@@ -1,34 +1,62 @@
-<script context="module">
-	export const prerender = true;
-</script>
-
 <script>
-	import Counter from '$lib/Counter.svelte';
+	import { onMount } from 'svelte';
+	// import ThumbsUp from '$lib/ThumbsUp.svelte';
+
+	let movies = [];
+
+	$: movie = movies[movies.length - 1];
+
+	$: {
+		if (movies.length <= 2) {
+			pullMovies().then(() => {
+				console.log(movies);
+			});
+			console.log('Pulling movies...');
+		}
+	}
+
+	async function pullMovies() {
+		const response = await fetch('https://dx-tinder-backend.zeda.workers.dev');
+		movies = movies.concat(await response.json());
+	}
+
+	function likeMovie() {
+		movies = movies.slice(0, -1);
+		console.log(movies);
+	}
+
+	onMount(async () => {
+		const response = await fetch('https://dx-tinder-backend.zeda.workers.dev');
+		movies = await response.json();
+	});
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>Inicio</title>
+	<meta name="description" content="DX Tinder" />
 </svelte:head>
 
-<section>
-	<h1>
-		<div class="welcome">
-			<picture>
-				<source srcset="svelte-welcome.webp" type="image/webp" />
-				<img src="svelte-welcome.png" alt="Welcome" />
-			</picture>
-		</div>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
+<div class="flex flex-row w-full justify-center">
+	<div
+		class="rounded flex flex-col h-xl bg-light-600 w-lg px-2 gap-y-2 items-center justify-center"
+	>
+		{#if movies.length}
+			<img src={movie.poster} class="h-full object-contain h-60" />
+			<div>Título: {movie.title}</div>
+			<div>Director: {movie.directors.join(', ')}</div>
+			<div>Géneros: {movie.genres.join(', ')}</div>
+			<div>Reparto: {movie.cast.join(', ')}</div>
+			<div>Trama: {movie.plot}</div>
+			<div class="flex flex-row h-12 my-4 w-lg bottom-0 justify-evenly">
+				<button class="rounded bg-red-400 h-14 w-20">No me interesa</button>
+				<button on:click={likeMovie} class="rounded bg-green-400 h-14 w-20">Me interesa</button>
+				<!-- <ThumbsUp /> -->
+			</div>
+		{:else}
+			Cargando...
+		{/if}
+	</div>
+</div>
 
 <style>
 	section {

@@ -1,12 +1,12 @@
 <script>
 	import { page } from '$app/stores';
-	import logo from './svelte-logo.svg';
+	import logo from './movie-heart.svg';
 </script>
 
-<header>
-	<div class="corner">
-		<a href="https://kit.svelte.dev">
-			<img src={logo} alt="SvelteKit" />
+<header class="flex flex-row justify-between">
+	<div class="h-14 m-2 w-14">
+		<a href="https://dx.zeda.tech">
+			<img src={logo} alt="DX Tinder" />
 		</a>
 	</div>
 
@@ -14,13 +14,15 @@
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
-		<ul>
-			<li class:active={$page.url.pathname === '/'}><a sveltekit:prefetch href="/">Home</a></li>
+		<ul class="flex flex-row gap-x-4">
+			<li class:active={$page.url.pathname === '/'}>
+				<a sveltekit:prefetch href="/">Recomendaciones</a>
+			</li>
 			<li class:active={$page.url.pathname === '/about'}>
-				<a sveltekit:prefetch href="/about">About</a>
+				<a sveltekit:prefetch href="/about">Guardadas</a>
 			</li>
 			<li class:active={$page.url.pathname === '/todos'}>
-				<a sveltekit:prefetch href="/todos">Todos</a>
+				<a sveltekit:prefetch href="/todos">Disponibles</a>
 			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
@@ -29,7 +31,7 @@
 	</nav>
 
 	<div class="corner">
-		<!-- TODO put something else here? github link? -->
+		<a href="/login">Iniciar Sesión</a>
 	</div>
 </header>
 
@@ -40,16 +42,11 @@
 	}
 
 	.corner {
-		width: 3em;
-		height: 3em;
+		@apply h-12 w-12;
 	}
 
 	.corner a {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
+		@apply flex items-center justify-center;
 	}
 
 	.corner img {
@@ -87,35 +84,8 @@
 		background-size: contain;
 	}
 
-	li {
-		position: relative;
-		height: 100%;
-	}
-
-	li.active::before {
-		--size: 6px;
-		content: '';
-		width: 0;
-		height: 0;
-		position: absolute;
-		top: 0;
-		left: calc(50% - var(--size));
-		border: var(--size) solid transparent;
-		border-top: var(--size) solid var(--accent-color);
-	}
-
 	nav a {
-		display: flex;
-		height: 100%;
-		align-items: center;
-		padding: 0 1em;
-		color: var(--heading-color);
-		font-weight: 700;
-		font-size: 0.8rem;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		text-decoration: none;
-		transition: color 0.2s linear;
+		@apply flex font-bold h-full text-sm py-4 px-0 transition items-center uppercase;
 	}
 
 	a:hover {
