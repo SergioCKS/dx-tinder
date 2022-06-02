@@ -1,3 +1,8 @@
+<!--
+  # Liked Movie Card
+
+  Small card to show a liked movie in the "liked" and "available" pages.
+-->
 <script>
 	export let movie;
 </script>

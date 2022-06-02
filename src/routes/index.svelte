@@ -4,8 +4,10 @@
 	import { moviesBuffer } from '@stores/movies';
 	import { userLoggedIn } from '@stores/auth';
 
+	// Movie shown to user
 	$: movie = $moviesBuffer[$moviesBuffer.length - 1];
 
+	// When the buffer is running low on movies, pull a new batch.
 	$: {
 		if ($moviesBuffer.length <= 2) {
 			pullMovies().then(() => {
@@ -15,6 +17,11 @@
 		}
 	}
 
+	/**
+	 * ## Pull movies
+	 *
+	 * Retrieves random movies and adds them to buffer.
+	 */
 	async function pullMovies() {
 		const response = await fetch('https://dx-tinder-backend.zeda.workers.dev');
 		try {
@@ -24,10 +31,12 @@
 		}
 	}
 
+	/**
+	 * On component mount, pull a batch of movies.
+	 */
 	onMount(async () => {
 		if ($userLoggedIn) {
-			const response = await fetch('https://dx-tinder-backend.zeda.workers.dev');
-			$moviesBuffer = await response.json();
+			pullMovies();
 		}
 	});
 </script>
@@ -38,32 +47,3 @@
 </svelte:head>
 
 <MovieCard movie={$moviesBuffer.length ? movie : undefined} />
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 1;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>

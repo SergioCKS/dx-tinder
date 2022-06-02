@@ -44,9 +44,6 @@ body::before {
 	opacity: 0.05;
 }
 
-h1,
-h2,
-
 p {
 	line-height: 1.5;
 }
@@ -70,8 +67,6 @@ pre {
 	overflow-x: auto;
 	color: var(--text-color);
 }
-
-input
 
 button:focus:not(:focus-visible) {
 	outline: none;

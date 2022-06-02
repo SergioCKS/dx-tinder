@@ -1,3 +1,8 @@
+<!--
+	# Liked movies page
+
+	Page that shows a list of the movies that the user liked before.
+-->
 <script>
 	import { onMount } from 'svelte';
 	import { accessToken, userId, userLoggedIn } from '@stores/auth';
@@ -6,6 +11,9 @@
 
 	let loading = false;
 
+	/**
+	 * On component mount, retrieve the movies liked by the user.
+	 */
 	onMount(async () => {
 		if (!$userLoggedIn) {
 			return;

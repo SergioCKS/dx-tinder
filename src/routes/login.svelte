@@ -1,3 +1,11 @@
+<!--
+  # Login screen
+
+  Email and password are sent to server for authentication.
+  The user is redirected to the main page on successful authentication.
+
+  TODO: Show user authentication errors.
+-->
 <script>
 	import { userLoggedIn, userId, accessToken, userEmail } from '../stores/auth';
 	import { goto } from '$app/navigation';
@@ -5,6 +13,12 @@
 	let email = '';
 	let password = '';
 
+	/**
+	 * ## Login
+	 *
+	 * Sends authentication request to the server.
+	 * On successful authentication, the user profile is stored locally.
+	 */
 	async function logIn() {
 		const b64Password = window.btoa(password);
 

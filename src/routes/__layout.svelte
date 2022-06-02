@@ -1,6 +1,12 @@
+<!-- 
+	## Main layout
+
+	Main layout of the app, contains the header and the footer.
+	Loads the global CSS file and the Windi definitions.
+	@component
+-->
 <script>
 	import { page } from '$app/stores';
-
 	import Header from '$lib/header/Header.svelte';
 	import { userLoggedIn } from '@stores/auth';
 	import '../app.css';

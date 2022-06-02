@@ -1,3 +1,8 @@
+<!--
+	# Header
+
+	Header with logo, navigation bar and login/logout info.
+-->
 <script>
 	import { userLoggedIn, userEmail, accessToken, userId } from '@stores/auth.js';
 	import { page } from '$app/stores';
@@ -12,13 +17,16 @@
 </script>
 
 <header class="flex flex-row px-2 justify-between">
+	<!-- Logo -->
 	<div class="h-14 m-2 w-14">
 		<a href="https://dx.zeda.tech">
 			<img src={logo} alt="DX Tinder" />
 		</a>
 	</div>
 
+	<!-- Navigation bar -->
 	<nav>
+		<!-- Left triangle -->
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
@@ -33,6 +41,7 @@
 				<a sveltekit:prefetch href="/available">Disponibles</a>
 			</li>
 		</ul>
+		<!-- Right triangle -->
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
 		</svg>
@@ -49,9 +58,12 @@
 </header>
 
 <style>
-	header {
-		display: flex;
-		justify-content: space-between;
+	.active {
+		@apply underline;
+	}
+
+	li {
+		@apply hover:bg-light-700;
 	}
 
 	.corner {
@@ -60,12 +72,6 @@
 
 	.corner a {
 		@apply flex items-center justify-center;
-	}
-
-	.corner img {
-		width: 2em;
-		height: 2em;
-		object-fit: contain;
 	}
 
 	nav {
@@ -85,16 +91,8 @@
 	}
 
 	ul {
-		position: relative;
-		padding: 0;
-		margin: 0;
-		height: 3em;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		list-style: none;
+		@apply bg-contain flex list-none h-12 m-0 p-0 relative justify-center items-center;
 		background: var(--background);
-		background-size: contain;
 	}
 
 	nav a {

@@ -1,3 +1,8 @@
+<!--
+  # Available movies page
+
+  Shows a list of the movies liked by the user that are available.
+-->
 <script>
 	import { likedMovies } from '@stores/movies';
 	import LikedMovieCard from '@components/LikedMovieCard.svelte';

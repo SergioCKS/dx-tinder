@@ -3,17 +3,17 @@
 	"compilerOptions": {
 		"allowJs": true,
 		"noImplicitAny": false,
-		"checkJs": true,
+		"checkJs": false,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
-		"strict": true,
+		"strict": false,
 		"paths": {
-			"@stores": ["src/stores"],
-			"@lib": ["src/lib"],
-			"@components": ["src/components"]
+			"@stores/*": ["src/stores/*"],
+			"@lib/*": ["src/lib/*"],
+			"@components/*": ["src/components/*"]
 		},
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte"]

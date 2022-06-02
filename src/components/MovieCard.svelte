@@ -1,13 +1,38 @@
+<!-- 
+  # Movie Card
+
+  Component that displays a movie in a big card.
+  Handles "interested"/"not interested" logic.
+-->
 <script>
 	import ThumbsUp from '@components/ThumbsUp.svelte';
 	import { moviesBuffer } from '@stores/movies';
 	import { accessToken, userId } from '@stores/auth';
+
+	/**
+	 * ## Movie
+	 *
+	 * Movie to display in the card.
+	 */
 	export let movie;
 
+	/**
+	 * ## Not interested
+	 *
+	 * When the user clicks "not interested", the movie is simply removed from buffer.
+	 */
 	function notInterested() {
 		$moviesBuffer = $moviesBuffer.slice(0, -1);
 	}
 
+	/**
+	 * ## Interested
+	 *
+	 * When the user clicks "interested", the movie is removed from buffer, but added to the
+	 * user "liked" movies.
+	 *
+	 * Endpoint: `/likeMovie`
+	 */
 	async function likeMovie() {
 		$moviesBuffer = $moviesBuffer.slice(0, -1);
 
@@ -30,15 +55,17 @@
 		{#if movie}
 			<img src={movie.poster} class="h-full object-contain h-60" alt={movie.title} />
 			<div>Título: {movie.title}</div>
-			<div>Director: {movie.directors.join(', ')}</div>
-			<div>Géneros: {movie.genres.join(', ')}</div>
-			<div>Reparto: {movie.cast.join(', ')}</div>
+			<div>Director: {movie.directors?.join(', ')}</div>
+			<div>Géneros: {movie.genres?.join(', ')}</div>
+			<div>Reparto: {movie.cast?.join(', ')}</div>
 			<div>Trama: {movie.plot}</div>
 			<div class="flex flex-row h-12 my-4 w-lg bottom-0 justify-evenly">
-				<button on:click={notInterested} class="rounded bg-red-400 h-14 p-2">No me interesa</button>
+				<button on:click={notInterested} class="rounded bg-red-400 h-14 p-2 hover:shadow">
+					No me interesa
+				</button>
 				<button
 					on:click={likeMovie}
-					class="rounded flex flex-row bg-green-400 h-14 p-2 gap-x-2 items-center"
+					class="rounded flex flex-row bg-green-400 h-14 p-2 gap-x-2 items-center hover:shadow"
 				>
 					<div>Me interesa</div>
 					<ThumbsUp />
