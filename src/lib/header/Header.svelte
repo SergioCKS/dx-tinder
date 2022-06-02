@@ -5,6 +5,7 @@
 -->
 <script>
 	import { userLoggedIn, userEmail, accessToken, userId } from '@stores/auth.js';
+	import { likedMovies, moviesBuffer } from '@stores/movies';
 	import { page } from '$app/stores';
 	import logo from './movie-heart.svg';
 
@@ -13,6 +14,8 @@
 		$userId = '';
 		$userEmail = '';
 		$accessToken = '';
+		$likedMovies = [];
+		$moviesBuffer = [];
 	}
 </script>
 
