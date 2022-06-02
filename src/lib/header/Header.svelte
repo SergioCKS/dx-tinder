@@ -47,10 +47,12 @@
 		</svg>
 	</nav>
 
-	<div class="corner">
+	<div>
 		{#if $userEmail}
-			{$userEmail}
-			<button on:click={logout}>Cerrar Sesión</button>
+			<div class="flex flex-col gap-y-2">
+				{$userEmail}
+				<button on:click={logout}>Cerrar Sesión</button>
+			</div>
 		{:else}
 			<a class="hover:underline" href="/login">Iniciar Sesión</a>
 		{/if}
