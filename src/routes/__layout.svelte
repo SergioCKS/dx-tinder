@@ -9,8 +9,13 @@
 	<slot />
 </main>
 
-<footer>
-	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+<footer class="bg-white right-0 bottom-0 fixed">
+	<p>
+		Luego de ver tus peliculas, visita <a
+			class="text-orange-300 hover:underline"
+			href="https://https://deltax.la/">DeltaX</a
+		> para gestionar tus embarques!
+	</p>
 </footer>
 
 <style windi:preflights:global windi:safelist:global>

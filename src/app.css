@@ -44,12 +44,6 @@ body::before {
 	opacity: 0.05;
 }
 
-#svelte {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-}
-
 h1,
 h2,
 
@@ -57,17 +51,8 @@ p {
 	line-height: 1.5;
 }
 
-a {
-	color: var(--accent-color);
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
 h1 {
-	font-size: 2rem;
+	@apply text-lg;
 	text-align: center;
 }
 
@@ -86,7 +71,7 @@ pre {
 	color: var(--text-color);
 }
 
-input,
+input
 
 button:focus:not(:focus-visible) {
 	outline: none;

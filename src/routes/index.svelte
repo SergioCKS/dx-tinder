@@ -1,15 +1,15 @@
 <script>
 	import { onMount } from 'svelte';
-	// import ThumbsUp from '$lib/ThumbsUp.svelte';
+	import MovieCard from '@components/MovieCard.svelte';
+	import { moviesBuffer } from '@stores/movies';
+	import { userLoggedIn } from '@stores/auth';
 
-	let movies = [];
-
-	$: movie = movies[movies.length - 1];
+	$: movie = $moviesBuffer[$moviesBuffer.length - 1];
 
 	$: {
-		if (movies.length <= 2) {
+		if ($moviesBuffer.length <= 2) {
 			pullMovies().then(() => {
-				console.log(movies);
+				console.log($moviesBuffer);
 			});
 			console.log('Pulling movies...');
 		}
@@ -17,17 +17,16 @@
 
 	async function pullMovies() {
 		const response = await fetch('https://dx-tinder-backend.zeda.workers.dev');
-		movies = movies.concat(await response.json());
-	}
-
-	function likeMovie() {
-		movies = movies.slice(0, -1);
-		console.log(movies);
+		try {
+			$moviesBuffer = $moviesBuffer.concat(await response.json());
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	onMount(async () => {
 		const response = await fetch('https://dx-tinder-backend.zeda.workers.dev');
-		movies = await response.json();
+		$moviesBuffer = await response.json();
 	});
 </script>
 
@@ -36,27 +35,14 @@
 	<meta name="description" content="DX Tinder" />
 </svelte:head>
 
-<div class="flex flex-row w-full justify-center">
-	<div
-		class="rounded flex flex-col h-xl bg-light-600 w-lg px-2 gap-y-2 items-center justify-center"
-	>
-		{#if movies.length}
-			<img src={movie.poster} class="h-full object-contain h-60" />
-			<div>Título: {movie.title}</div>
-			<div>Director: {movie.directors.join(', ')}</div>
-			<div>Géneros: {movie.genres.join(', ')}</div>
-			<div>Reparto: {movie.cast.join(', ')}</div>
-			<div>Trama: {movie.plot}</div>
-			<div class="flex flex-row h-12 my-4 w-lg bottom-0 justify-evenly">
-				<button class="rounded bg-red-400 h-14 w-20">No me interesa</button>
-				<button on:click={likeMovie} class="rounded bg-green-400 h-14 w-20">Me interesa</button>
-				<!-- <ThumbsUp /> -->
-			</div>
-		{:else}
-			Cargando...
-		{/if}
+{#if $userLoggedIn}
+	<MovieCard movie={$moviesBuffer.length ? movie : undefined} />
+{:else}
+	<div class="flex flex-col h-xl items-center">
+		<a class="text-orange-300 hover:underline" href="/login">Inicia sesión</a> para empezar a seleccionar
+		peliculas!
 	</div>
-</div>
+{/if}
 
 <style>
 	section {

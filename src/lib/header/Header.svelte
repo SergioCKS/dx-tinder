@@ -1,9 +1,17 @@
 <script>
+	import { userLoggedIn, userEmail, accessToken, userId } from '@stores/auth.js';
 	import { page } from '$app/stores';
 	import logo from './movie-heart.svg';
+
+	function logout() {
+		$userLoggedIn = false;
+		$userId = '';
+		$userEmail = '';
+		$accessToken = '';
+	}
 </script>
 
-<header class="flex flex-row justify-between">
+<header class="flex flex-row px-2 justify-between">
 	<div class="h-14 m-2 w-14">
 		<a href="https://dx.zeda.tech">
 			<img src={logo} alt="DX Tinder" />
@@ -31,7 +39,12 @@
 	</nav>
 
 	<div class="corner">
-		<a href="/login">Iniciar Sesión</a>
+		{#if $userEmail}
+			{$userEmail}
+			<button on:click={logout}>Cerrar Sesión</button>
+		{:else}
+			<a class="hover:underline" href="/login">Iniciar Sesión</a>
+		{/if}
 	</div>
 </header>
 
@@ -86,9 +99,5 @@
 
 	nav a {
 		@apply flex font-bold h-full text-sm py-4 px-0 transition items-center uppercase;
-	}
-
-	a:hover {
-		color: var(--accent-color);
 	}
 </style>
