@@ -1,12 +1,22 @@
 <script>
+	import { page } from '$app/stores';
+
 	import Header from '$lib/header/Header.svelte';
+	import { userLoggedIn } from '@stores/auth';
 	import '../app.css';
 </script>
 
 <Header />
 
 <main>
-	<slot />
+	{#if $userLoggedIn || $page.url.pathname === '/login'}
+		<slot />
+	{:else}
+		<div class="flex flex-col h-xl items-center">
+			<a class="text-orange-300 hover:underline" href="/login">Inicia sesión</a> para empezar a seleccionar
+			peliculas!
+		</div>
+	{/if}
 </main>
 
 <footer class="bg-white right-0 bottom-0 fixed">

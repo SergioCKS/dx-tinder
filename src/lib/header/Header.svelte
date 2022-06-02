@@ -27,10 +27,10 @@
 				<a sveltekit:prefetch href="/">Recomendaciones</a>
 			</li>
 			<li class:active={$page.url.pathname === '/about'}>
-				<a sveltekit:prefetch href="/about">Guardadas</a>
+				<a sveltekit:prefetch href="/liked">Guardadas</a>
 			</li>
-			<li class:active={$page.url.pathname === '/todos'}>
-				<a sveltekit:prefetch href="/todos">Disponibles</a>
+			<li class:active={$page.url.pathname === '/available'}>
+				<a sveltekit:prefetch href="/available">Disponibles</a>
 			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">

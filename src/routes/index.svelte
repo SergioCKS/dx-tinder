@@ -18,15 +18,17 @@
 	async function pullMovies() {
 		const response = await fetch('https://dx-tinder-backend.zeda.workers.dev');
 		try {
-			$moviesBuffer = $moviesBuffer.concat(await response.json());
+			$moviesBuffer = (await response.json()).concat($moviesBuffer);
 		} catch (e) {
 			console.log(e);
 		}
 	}
 
 	onMount(async () => {
-		const response = await fetch('https://dx-tinder-backend.zeda.workers.dev');
-		$moviesBuffer = await response.json();
+		if ($userLoggedIn) {
+			const response = await fetch('https://dx-tinder-backend.zeda.workers.dev');
+			$moviesBuffer = await response.json();
+		}
 	});
 </script>
 
@@ -35,14 +37,7 @@
 	<meta name="description" content="DX Tinder" />
 </svelte:head>
 
-{#if $userLoggedIn}
-	<MovieCard movie={$moviesBuffer.length ? movie : undefined} />
-{:else}
-	<div class="flex flex-col h-xl items-center">
-		<a class="text-orange-300 hover:underline" href="/login">Inicia sesión</a> para empezar a seleccionar
-		peliculas!
-	</div>
-{/if}
+<MovieCard movie={$moviesBuffer.length ? movie : undefined} />
 
 <style>
 	section {
